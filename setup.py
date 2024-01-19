@@ -2,14 +2,14 @@ from setuptools import setup, find_packages
 
 setup(
     name='nlm-utils',
-    version='0.1.1',    
+    version='0.1.2',    
     description='Common utilities used by all nlm-* libraries.',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     url='https://github.com/nlmatics/nlm-utils',
     author='Ambika Sukla',
     author_email='ambika.sukla@nlmatics.com',
-    license='MIT',
+    license='Apache License 2.0',
     packages=find_packages(),
     install_requires=[
         "aiohttp==3.8.5",
