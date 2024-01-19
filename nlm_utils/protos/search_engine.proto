@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package nlm_search_engine;
+
+// ApplyTemplate service
+service SearchEngine {
+  rpc get_candidates(GetCandidatesRequest) returns (stream Candidate) {};
+
+  rpc async_get_candidates(GetCandidatesRequest) returns (CandidateResponse) {};
+
+  rpc create_index(CreateIndexRequest) returns (google.protobuf.Empty) {};
+
+  rpc add_to_index(AddToIndexRequest) returns (google.protobuf.Empty) {};
+}
+
+// The request message
+message GetCandidatesRequest {
+  repeated string templates = 1;
+  repeated string questions = 2;
+  repeated string headers = 3;
+  string workspace_idx = 4;
+  string file_idx = 5;
+  int32 matches_per_doc = 6;
+}
+
+message CreateIndexRequest { string workspace_idx = 1; }
+
+message AddToIndexRequest {
+  string workspace_idx = 1;
+  string file_idx = 2;
+}
+
+message Candidate {
+  int32 match_idx = 1;
+  string file_idx = 2;
+  string text = 3;
+  string header_text = 4;
+  bool is_table_row = 5;
+  string level = 6;
+  int32 header_match_idx = 7;
+  string block_type = 9;
+  float bm25 = 10;
+  float sif = 11;
+  float score = 12;
+}
+
+message CandidateResponse { repeated Candidate candidates = 1; }
